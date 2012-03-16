@@ -14,6 +14,7 @@
 package com.proofpoint.galaxy.coordinator;
 
 import com.proofpoint.bootstrap.Bootstrap;
+import com.proofpoint.galaxy.coordinator.jclouds.JCloudsProvisionerModule;
 import com.proofpoint.http.client.HttpClientModule;
 import com.proofpoint.json.JsonModule;
 import com.proofpoint.http.server.HttpServerModule;
@@ -44,6 +45,7 @@ public class CoordinatorMain
                     new JmxModule(),
                     new CoordinatorMainModule(),
                     installIfPropertyEquals(new LocalProvisionerModule(), "coordinator.provisioner", "local"),
+                    installIfPropertyEquals(new JCloudsProvisionerModule(), "coordinator.provisioner", "jclouds"),
                     installIfPropertyEquals(new AwsProvisionerModule(), "coordinator.provisioner", "aws"));
 
             app.strictConfig().initialize();
